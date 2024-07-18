@@ -65,7 +65,7 @@ const claim = async () => {
     const epoch = await predictionContract.currentEpoch();
     const isClaimable = await predictionContract.claimable(parseInt(epoch) - 1, signer.address);
     if (isClaimable[0] === true) {
-      await claim(parseInt(epoch) - 1);
+      await predictionContract.claim(parseInt(epoch) - 1)
       console.log("claimed")
     }
   } catch (err) {
