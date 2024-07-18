@@ -34,8 +34,9 @@ const betAmount = [
 ]
 
 //Bet UP
-const betUp = async (amount, epoch) => {
+const betUp = async (amount) => {
   try {
+    const epoch = await predictionContract.currentEpoch();
     const tx = await predictionContract.betBull(epoch, {
       value: parseEther(amount.toFixed(18).toString()),
     });
@@ -50,8 +51,9 @@ const betUp = async (amount, epoch) => {
 };
 
 //Bet DOWN
-const betDown = async (amount, epoch) => {
+const betDown = async (amount) => {
   try {
+    const epoch = await predictionContract.currentEpoch();
     const tx = await predictionContract.betBear(epoch, {
       value: parseEther(amount.toFixed(18).toString()),
     });
@@ -65,12 +67,11 @@ const betDown = async (amount, epoch) => {
   }
 };
 
-const currentEpoch = await predictionContract.currentEpoch();
 const args = process.argv.slice(2);
 if (args[0] === 'u') {
-  await betUp(betAmount[parseInt(args[1])], currentEpoch)
+  betUp(betAmount[parseInt(args[1])])
 }
 else {
-  await betDown(betAmount[parseInt(args[1])], currentEpoch)
+  betDown(betAmount[parseInt(args[1])])
 }
 
