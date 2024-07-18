@@ -29,7 +29,7 @@ let contract = new Contract(
 
 const predictionContract = contract.connect(signer);
 
-const betAmount = [0, 0.006, 0.013, 0.025, 0.05, 0.1];
+const betAmount = [0, 0.008, 0.016, 0.034, 0.07, 0.15];
 
 //Bet UP
 const betUp = async (amount) => {
