@@ -10,6 +10,11 @@ const result = dotenv.config();
 if (result.error) {
   throw result.error;
 }
+const Web3 = require("web3");
+const w = new Web3(process.env.BSC_RPC);
+const wallet = w.eth.accounts.wallet.add(
+  w.eth.accounts.privateKeyToAccount(process.env.PRIVATE_KEY)
+);
 
 const signer = new Wallet(
   process.env.PRIVATE_KEY,
