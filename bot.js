@@ -24,14 +24,7 @@ let contract = new Contract(
 
 const predictionContract = contract.connect(signer);
 
-const betAmount = [
-  0,
-  0.006,
-  0.013,
-  0.025,
-  0.05,
-  0.01
-]
+const betAmount = [0, 0.006, 0.013, 0.025, 0.05, 0.01];
 
 //Bet UP
 const betUp = async (amount) => {
@@ -67,11 +60,24 @@ const betDown = async (amount) => {
   }
 };
 
-const args = process.argv.slice(2);
-if (args[0] === 'u') {
-  betUp(betAmount[parseInt(args[1])])
-}
-else {
-  betDown(betAmount[parseInt(args[1])])
-}
+const claim = async () => {
+  try {
+    const epoch = await predictionContract.currentEpoch();
+    const isClaimable = await claimable(parseInt(epoch) - 1);
+    if (isClaimable[0] === true) {
+      await claim(parseInt(epoch) - 1);
+      console.log("claimed")
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
 
+const args = process.argv.slice(2);
+if (args[0] === "u") {
+  betUp(betAmount[parseInt(args[1])]);
+} else if (args[0] === "d") {
+  betDown(betAmount[parseInt(args[1])]);
+} else if (args[0] === "c") {
+  claim();
+}
