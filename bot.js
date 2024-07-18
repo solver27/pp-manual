@@ -68,9 +68,9 @@ const betDown = async (amount) => {
 const claim = async () => {
   try {
     const epoch = await predictionContract.currentEpoch();
-    const isClaimable = await contract.functions.claimable(parseInt(epoch) - 1, wallet.address);
+    const isClaimable = await predictionContract.claimable(parseInt(epoch) - 2, signer.address);
     if (isClaimable[0] === true) {
-      await contract.functions.claim(parseInt(epoch) - 1);
+      await predictionContract.claim(parseInt(epoch) - 2);
       console.log("claimed")
     }
   } catch (err) {
