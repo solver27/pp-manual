@@ -29,7 +29,7 @@ let contract = new Contract(
 
 const predictionContract = contract.connect(signer);
 
-const betAmount = [0, 0.002, 0.004, 0.008, 0.016, 0.032];
+const betAmount = [0, 0.01, 0.02, 0.04, 0.08, 0.16];
 
 //Bet UP
 const betUp = async (amount) => {
@@ -42,9 +42,6 @@ const betUp = async (amount) => {
     console.log(`Successful of ${amount} to UP`);
   } catch (error) {
     console.log("Transaction Error", error);
-    GLOBAL_CONFIG.WAITING_TIME = reduceWaitingTimeByTwoBlocks(
-      GLOBAL_CONFIG.WAITING_TIME
-    );
   }
 };
 
@@ -59,9 +56,6 @@ const betDown = async (amount) => {
     console.log(`Successful of ${amount} to DOWN`);
   } catch (error) {
     console.log("Transaction Error", error);
-    GLOBAL_CONFIG.WAITING_TIME = reduceWaitingTimeByTwoBlocks(
-      GLOBAL_CONFIG.WAITING_TIME
-    );
   }
 };
 
